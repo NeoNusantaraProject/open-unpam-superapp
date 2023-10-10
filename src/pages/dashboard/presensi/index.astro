@@ -18,8 +18,6 @@ const matakuliah = await api.presensi.getJadwalKuliah();
 let errorMessage = "Hello World";
 let errorClass = "hidden";
 
-console.log(matakuliah);
-
 if (!matakuliah.status.success) {
   errorClass = "visible";
   errorMessage = matakuliah.status.message;
@@ -29,11 +27,11 @@ if (!matakuliah.status.success) {
 
 <Layout pageName="Presensi">
   <Navbar username={nama_user} nim={id_user} />
-  <h2
-    class={`bg-red-500 font-bold text-white text-center text-xl ${errorClass}`}
+  <a class={`${errorClass}`} href="/dashboard/presensi"><h2
+    class={`bg-red-500 font-bold text-white text-center text-xl`}
   >
     {errorMessage}
-  </h2>
+  </h2></a>
 
   {
     errorClass == "hidden" ? (

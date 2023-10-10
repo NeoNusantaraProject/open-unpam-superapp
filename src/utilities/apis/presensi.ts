@@ -77,7 +77,6 @@ export class API_Presensi {
           success: false,
           message: e.message,
         },
-        e,
       };
     }
   };

@@ -11,9 +11,9 @@ export const Matkul: React.FC<{
         <p>
           {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 31 : 0} Pertemuan
         </p>
-        <a href={`/details/${idMatkul}/${idKelas}`}>
-          <button className="px-1 rounded-md bg-palette-6">
-            Details <i className="nf nf-fa-angle_right"></i>
+        <a href={`/dashboard/presensi/details/${idMatkul}/${idKelas}`}>
+          <button className="px-2 rounded-md bg-palette-6">
+            <i className="fas fa-info-circle px-1"></i> Details
           </button>
         </a>
       </div>

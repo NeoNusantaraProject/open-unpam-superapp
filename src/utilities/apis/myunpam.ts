@@ -97,6 +97,7 @@ export class API_MyUNPAM {
           success: false,
           message: e.message,
         },
+        e,
       };
     }
   };
