@@ -1,0 +1,26 @@
+---
+interface Props {
+  pageName: string;
+}
+
+const { pageName } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageName} | UNPAM Super APP</title>
+    <link
+      href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <main class="h-screen bg-palette-2">
+      <slot />
+    </main>
+  </body>
+</html>

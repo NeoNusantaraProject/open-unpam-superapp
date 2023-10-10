@@ -1,0 +1,31 @@
+---
+import Layout from "../../templates/layout.astro";
+import Navbar from "../../components/navbar.astro";
+import { initAPI } from "../../utilities/apiprovider";
+
+const api = initAPI(Astro.cookies);
+
+const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
+---
+
+<Layout pageName="Dashboard">
+  <Navbar username={nama_user} nim={id_user} />
+  <div class="grid grid-cols-2 justify-center gap-4 p-32 h-[80%] text-white">
+    <a href="/dashboard/myunpam" class="bg-palette-3">
+      <div
+        class="flex flex-col h-full justify-center items-center duration-200 hover:scale-110"
+      >
+        <i class="fas fa-graduation-cap text-9xl"></i>
+        <h2 class="text-6xl font-bold">My UNPAM</h2>
+      </div>
+    </a>
+    <a href="/dashboard/presensi" class="bg-palette-3">
+      <div
+        class="flex flex-col h-full justify-center items-center duration-200 hover:scale-110"
+      >
+        <i class="fas fa-clipboard-user text-9xl"></i>
+        <h2 class="text-6xl font-bold">UNPAM PRESENSI</h2>
+      </div>
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,79 @@
+---
+import Layout from "../../templates/layout.astro";
+import { initAPI } from "../../utilities/apiprovider";
+
+const api = initAPI(Astro.cookies);
+
+let errorMessageClass = "hidden";
+let errorMessage = "";
+
+if (Astro.request.method == "POST") {
+  try {
+    const data = await Astro.request.formData();
+
+    const apiResponse = await api.myunpam.login(
+      data.get("nim") as string,
+      data.get("password") as string
+    );
+
+    if (!apiResponse.status.success) {
+      errorMessageClass = "visible";
+      errorMessage = apiResponse.status.message;
+    } else {
+      Astro.cookies.set("my_unpam_token", apiResponse.data.access_token);
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    }
+  }
+}
+
+if (!!Astro.cookies.get("my_unpam_token")?.value) {
+  return Astro.redirect("/dashboard");
+}
+---
+
+<Layout pageName="Login Page">
+  <div class="h-full text-white flex items-center justify-center">
+    <div
+      class="flex px-4 py-8 justify-center items-center bg-palette-3 rounded-xl"
+    >
+      <div class="w-full">
+        <h1 class="text-xl text-center font-medium">
+          <span class="font-bold text-2xl">My UNPAM</span>
+          <br />Login Credentials
+        </h1>
+        <div class={`bg-red-600 px-2 py-1 my-2 ${errorMessageClass}`}>
+          <h3>{errorMessage}</h3>
+        </div>
+        <form
+          method="post"
+          class="grid gap-1 mt-4"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="text"
+            name="nim"
+            id="nim"
+            placeholder="NIM"
+            class="bg-palette-4 p-2 rounded-md"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            class="bg-palette-4 p-2 rounded-md"
+          />
+          <button class="bg-palette-6 rounded-lg p-2">Login</button>
+          <p class="max-w-sm text-justify text-xs text-gray-400 mt-2">
+            Don't worry. I <span class="font-bold text-gray-200">promise</span>
+             not to save your account data 🔐. Your login credentials is used to
+            communicate with UNPAM Server 🚀
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>

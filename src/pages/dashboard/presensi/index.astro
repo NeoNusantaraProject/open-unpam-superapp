@@ -1,0 +1,67 @@
+---
+import Layout from "../../../templates/layout.astro";
+import Navbar from "../../../components/navbar.astro";
+import { MaktulGroup } from "../../../components/matkul.tsx";
+
+import { initAPI } from "../../../utilities/apiprovider";
+
+const token = Astro.cookies.get("presensi_token");
+
+if (!token) return Astro.redirect("/dashboard");
+
+const api = initAPI(Astro.cookies);
+
+const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
+
+const matakuliah = await api.presensi.getJadwalKuliah();
+
+let errorMessage = "Hello World";
+let errorClass = "hidden";
+
+console.log(matakuliah);
+
+if (!matakuliah.status.success) {
+  errorClass = "visible";
+  errorMessage = matakuliah.status.message;
+} else {
+}
+---
+
+<Layout pageName="Presensi">
+  <Navbar username={nama_user} nim={id_user} />
+  <h2
+    class={`bg-red-500 font-bold text-white text-center text-xl ${errorClass}`}
+  >
+    {errorMessage}
+  </h2>
+
+  {
+    errorClass == "hidden" ? (
+      <MaktulGroup
+        matkulCollection={matakuliah.data.map((e) => ({
+          namaMatkul: e.nama_mata_kuliah,
+          sks: parseInt(e.sks),
+          idMatkul: e.id_mata_kuliah,
+          idKelas: e.id_kelas,
+        }))}
+      />
+    ) : (
+      ""
+    )
+  }
+
+  <!-- <div class="grid grid-cols-4">
+    {
+      errorClass == "hidden"
+        ? matakuliah.data.map((e) => {
+            <Matkul
+              namaMatkul={e.nama_mata_kuliah}
+              idKelas={e.id_kelas}
+              idMatkul={e.id_mata_kuliah}
+              sks={parseInt(e.sks)}
+            />;
+          })
+        : ""
+    }
+  </div> -->
+</Layout>

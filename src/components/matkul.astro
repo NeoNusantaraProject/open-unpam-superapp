@@ -1,0 +1,24 @@
+---
+interface Props {
+  namaMatkul: string;
+  sks: number;
+  idMatkul: string;
+  idKelas: string;
+}
+
+const { idKelas, idMatkul, namaMatkul, sks } = Astro.props;
+---
+
+<div class="text-white p-2">
+  <div class="bg-palette-4 p-1">
+    <p class="text-center">🚀{namaMatkul}</p>
+    <p>
+      {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 31 : 0} Pertemuan
+    </p>
+    <a href={`/details/${idMatkul}/${idKelas}`}>
+      <button class="px-1 rounded-md bg-palette-6">
+        Details <i class="nf nf-fa-angle_right"></i>
+      </button>
+    </a>
+  </div>
+</div>

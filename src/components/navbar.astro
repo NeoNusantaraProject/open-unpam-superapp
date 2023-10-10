@@ -1,0 +1,24 @@
+---
+interface Props {
+  username: string;
+  nim: string;
+}
+
+const { username, nim } = Astro.props;
+---
+
+<div class="h-10 grid grid-cols-3 items-center text-white bg-palette-1 px-32">
+  <div class="flex justify-start">
+    <p>
+      Authenticated as: {username} / {nim}
+    </p>
+  </div>
+  <div class="flex justify-center">
+    <a class="bg-palette-6 px-2 rounded-md" href={"/"}
+      ><i class="fas fa-home-lg"></i></a
+    >
+  </div>
+  <div class="flex justify-end">
+    <button class="bg-palette-6 px-2 rounded-md"> Logout</button>
+  </div>
+</div>
