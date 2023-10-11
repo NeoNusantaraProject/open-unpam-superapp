@@ -26,8 +26,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
       if (!tokenPresensi.status.success) return next();
 
-      console.log([data, tokenPresensi]);
-      context.cookies.set("presensi_token", tokenPresensi.data.access_token);
+      context.cookies.set("presensi_token", tokenPresensi.data.access_token, {
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      });
     }
   }
 

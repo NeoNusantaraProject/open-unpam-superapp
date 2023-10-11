@@ -1,3 +1,12 @@
+import https from "node:https";
+import axios, { AxiosError, type AxiosRequestConfig } from "axios";
+
+const fetcher = axios.create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
+});
+
 interface ITokenPayload {
   id_user: string;
   kategori_pengguna: string;
@@ -13,8 +22,8 @@ interface ITokenPayload {
 export class API_MyUNPAM {
   constructor(private baseUrl: string, private token: string) {}
 
-  private fetchTo = async (endpoint: string, options?: RequestInit) => {
-    return await fetch(`${this.baseUrl}${endpoint}`, options);
+  private fetchTo = async (endpoint: string, options?: AxiosRequestConfig) => {
+    return await fetcher(`${this.baseUrl}${endpoint}`, options);
   };
 
   public getTokenPayloadDecoded = () => {
@@ -36,8 +45,7 @@ export class API_MyUNPAM {
           },
         }
       ).then(async (e) => {
-        const responseData = await e.json();
-
+        const responseData = await e.data;
         if (e.status != 200) {
           return {
             status: {
@@ -58,7 +66,7 @@ export class API_MyUNPAM {
       return {
         status: {
           success: false,
-          message: e.message,
+          message: e.response.data.message,
         },
       };
     }
@@ -71,10 +79,9 @@ export class API_MyUNPAM {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: username, password: password }),
+        data: JSON.stringify({ username: username, password: password }),
       }).then(async (e) => {
-        const responseData = await e.json();
-
+        const responseData = await e.data;
         if (e.status != 200) {
           return {
             status: {
@@ -92,13 +99,13 @@ export class API_MyUNPAM {
         }
       });
     } catch (e) {
-      return {
-        status: {
-          success: false,
-          message: e.message,
-        },
-        e,
-      };
+      if (e instanceof AxiosError)
+        return {
+          status: {
+            success: false,
+            message: e.response.data.message,
+          },
+        };
     }
   };
 }

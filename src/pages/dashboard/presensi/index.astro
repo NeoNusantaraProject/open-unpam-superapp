@@ -27,39 +27,26 @@ if (!matakuliah.status.success) {
 
 <Layout pageName="Presensi">
   <Navbar username={nama_user} nim={id_user} />
-  <a class={`${errorClass}`} href="/dashboard/presensi"><h2
-    class={`bg-red-500 font-bold text-white text-center text-xl`}
+  <a class={`${errorClass}`} href="/dashboard/presensi"
+    ><h2 class={`bg-red-500 font-bold text-white text-center text-xl`}>
+      {errorMessage}
+    </h2></a
   >
-    {errorMessage}
-  </h2></a>
 
-  {
-    errorClass == "hidden" ? (
-      <MaktulGroup
-        matkulCollection={matakuliah.data.map((e) => ({
-          namaMatkul: e.nama_mata_kuliah,
-          sks: parseInt(e.sks),
-          idMatkul: e.id_mata_kuliah,
-          idKelas: e.id_kelas,
-        }))}
-      />
-    ) : (
-      ""
-    )
-  }
-
-  <!-- <div class="grid grid-cols-4">
+  <div class="">
     {
-      errorClass == "hidden"
-        ? matakuliah.data.map((e) => {
-            <Matkul
-              namaMatkul={e.nama_mata_kuliah}
-              idKelas={e.id_kelas}
-              idMatkul={e.id_mata_kuliah}
-              sks={parseInt(e.sks)}
-            />;
-          })
-        : ""
+      errorClass == "hidden" ? (
+        <MaktulGroup
+          matkulCollection={matakuliah.data.map((e) => ({
+            namaMatkul: e.nama_mata_kuliah,
+            sks: parseInt(e.sks),
+            idMatkul: e.id_mata_kuliah,
+            idKelas: e.id_kelas,
+          }))}
+        />
+      ) : (
+        ""
+      )
     }
-  </div> -->
+  </div>
 </Layout>

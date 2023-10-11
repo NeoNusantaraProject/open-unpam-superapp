@@ -7,13 +7,15 @@ export const Matkul: React.FC<{
   return (
     <div className="text-white p-2">
       <div className="bg-palette-4 p-1">
-        <p className="text-center">🚀{namaMatkul}</p>
+        <p className="text-center font-bold">🚀{namaMatkul}</p>
         <p>
+          <i className="fas fa-layer-group"></i>
+          {"  "}
           {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 31 : 0} Pertemuan
         </p>
-        <a href={`/dashboard/presensi/details/${idMatkul}/${idKelas}`}>
+        <a href={`/dashboard/presensi/${idMatkul}/${idKelas}`}>
           <button className="px-2 rounded-md bg-palette-6">
-            <i className="fas fa-info-circle px-1"></i> Details
+            <i className="fas fa-info-circle px-1"></i>Details
           </button>
         </a>
       </div>
