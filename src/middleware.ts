@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { initAPI } from "./utilities/apiprovider";
+import { APIProvider, initAPI } from "./utilities/apiprovider";
 
 interface ITokenPayload {
   id_user: string;
@@ -17,9 +17,12 @@ const getTokenPayloadDecoded = (token: string) => {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const api = initAPI(context.cookies);
   const MyUNPAMToken = context.cookies.get("my_unpam_token");
   const PresensiToken = context.cookies.get("presensi_token");
+  let api = initAPI({
+    myUNPAMToken: MyUNPAMToken?.value as string,
+    presensiToken: PresensiToken?.value as string,
+  });
 
   if (context.url.pathname.startsWith("/dashboard")) {
     if (!MyUNPAMToken) return context.redirect("/login");

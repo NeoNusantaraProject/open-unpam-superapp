@@ -4,7 +4,9 @@ import Navbar from "../../../../components/navbar.astro";
 import { initAPI } from "../../../../utilities/apiprovider";
 import { PertemuanGroup } from "../../../../components/pertemuan";
 
-const api = initAPI(Astro.cookies);
+const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
+const presensiToken = Astro.cookies.get("presensi_token").value as string;
+const api = initAPI({ myUNPAMToken, presensiToken });
 
 const { idmatkul, idkelas } = Astro.params;
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();

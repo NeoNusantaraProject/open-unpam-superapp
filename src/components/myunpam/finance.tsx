@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { initAPI } from "../../utilities/apiprovider";
 import type { AstroCookies } from "astro";
 
-const Finance: React.FC<{ astroCookies: AstroCookies }> = ({
-  astroCookies,
-}) => {
+const Finance: React.FC<{
+  astroCookies: { myUNPAMToken: string; presensiToken: string };
+}> = ({ astroCookies }) => {
   useEffect(() => {
-    const api = initAPI(astroCookies);
-    console.log(api.myunpam.getTokenPayloadDecoded());
+    const api = initAPI(astroCookies, "ProxyFetchAPI");
+    console.log(api.myunpam.getFinanceData());
   }, []);
 
   return (

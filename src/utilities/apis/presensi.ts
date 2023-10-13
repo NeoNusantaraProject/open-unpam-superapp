@@ -1,18 +1,9 @@
-import https from "node:https";
-import axios, { AxiosError, type AxiosRequestConfig } from "axios";
+import { Fetcher, type FetchAdapter } from "../fetcher";
 
-const fetcher = axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
-});
-
-export class API_Presensi {
-  constructor(private baseUrl: string, private token: string) {}
-
-  private fetchTo = async (endpoint: string, options?: AxiosRequestConfig) => {
-    return await fetcher(`${this.baseUrl}${endpoint}`, options);
-  };
+export class API_Presensi extends Fetcher {
+  constructor(baseUrl: string, private token: string, adapter: FetchAdapter) {
+    super(baseUrl, adapter);
+  }
 
   public getToken = async (loginToken: string) => {
     try {

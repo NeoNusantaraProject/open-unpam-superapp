@@ -3,7 +3,10 @@ import Layout from "../../templates/layout.astro";
 import Navbar from "../../components/navbar.astro";
 import { initAPI } from "../../utilities/apiprovider";
 
-const api = initAPI(Astro.cookies);
+const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
+const presensiToken = Astro.cookies.get("presensi_token").value as string;
+
+const api = initAPI({ myUNPAMToken, presensiToken });
 
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 ---

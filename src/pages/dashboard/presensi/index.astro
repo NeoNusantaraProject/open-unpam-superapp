@@ -5,11 +5,11 @@ import { MaktulGroup } from "../../../components/matkul.tsx";
 
 import { initAPI } from "../../../utilities/apiprovider";
 
-const token = Astro.cookies.get("presensi_token");
+const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
+const presensiToken = Astro.cookies.get("presensi_token").value as string;
+if (!presensiToken) return Astro.redirect("/dashboard");
 
-if (!token) return Astro.redirect("/dashboard");
-
-const api = initAPI(Astro.cookies);
+const api = initAPI({ myUNPAMToken, presensiToken });
 
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 

@@ -1,11 +1,5 @@
-import https from "node:https";
-import axios, { AxiosError, type AxiosRequestConfig } from "axios";
-
-const fetcher = axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
-});
+import { AxiosError } from "axios";
+import { Fetcher, type FetchAdapter } from "../fetcher";
 
 interface ITokenPayload {
   id_user: string;
@@ -19,18 +13,42 @@ interface ITokenPayload {
   token_version: number;
 }
 
-export class API_MyUNPAM {
-  constructor(private baseUrl: string, private token: string) {}
-
-  private fetchTo = async (endpoint: string, options?: AxiosRequestConfig) => {
-    return await fetcher(`${this.baseUrl}${endpoint}`, options);
-  };
+export class API_MyUNPAM extends Fetcher {
+  constructor(baseUrl: string, private token: string, adapter: FetchAdapter) {
+    super(baseUrl, adapter);
+  }
 
   public getTokenPayloadDecoded = () => {
     const tokenPayload = this.token.split(".")[1];
     const payload = JSON.parse(atob(tokenPayload)) as ITokenPayload;
 
     return payload;
+  };
+
+  public getFinanceData = async (semester?: string) => {
+    return await this.fetchTo(`/api/keuangan?semester=${semester || ""}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }).then(async (e) => {
+      const responseData = await e.data;
+      if (e.status != 200) {
+        return {
+          status: {
+            success: false,
+            message: responseData.message,
+          },
+        };
+      } else {
+        return {
+          status: {
+            success: true,
+          },
+          data: responseData,
+        };
+      }
+    });
   };
 
   public requestPresensiLoginToken = async () => {
