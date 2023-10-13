@@ -1,0 +1,16 @@
+---
+import Layout from "../../../templates/layout.astro";
+import Navbar from "../../../components/navbar.astro";
+import { initAPI } from "../../../utilities/apiprovider";
+import Finance from "../../../components/myunpam/finance";
+
+const api = initAPI(Astro.cookies);
+
+const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
+---
+
+<Layout pageName="MyUNPAM">
+  <Navbar username={nama_user} nim={id_user} />
+  <h1 class="text-white font-bold text-2xl text-center my-6">Finance</h1>
+  <Finance astroCookies={Astro.cookies} client:visible />
+</Layout>

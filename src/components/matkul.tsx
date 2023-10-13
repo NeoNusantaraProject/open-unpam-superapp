@@ -33,12 +33,13 @@ export const MaktulGroup: React.FC<{
 }> = ({ matkulCollection }) => {
   return (
     <div className="grid grid-cols-4">
-      {matkulCollection.map((e) => (
+      {matkulCollection.map((e, i) => (
         <Matkul
           idKelas={e.idKelas}
           idMatkul={e.idMatkul}
           namaMatkul={e.namaMatkul}
           sks={e.sks}
+          key={i}
         />
       ))}
     </div>
