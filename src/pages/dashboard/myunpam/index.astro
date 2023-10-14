@@ -3,9 +3,10 @@ import Layout from "../../../templates/layout.astro";
 import Navbar from "../../../components/navbar.astro";
 import { initAPI } from "../../../utilities/apiprovider";
 import Finance from "../../../components/myunpam/finance";
+import Schedule from "../../../components/myunpam/schedule";
 
-const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
-const presensiToken = Astro.cookies.get("presensi_token").value as string;
+const myUNPAMToken = Astro.cookies.get("my_unpam_token")?.value as string;
+const presensiToken = Astro.cookies.get("presensi_token")?.value as string;
 
 const api = initAPI({ myUNPAMToken, presensiToken });
 
@@ -14,6 +15,8 @@ const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 
 <Layout pageName="MyUNPAM">
   <Navbar username={nama_user} nim={id_user} />
+  <h1 class="text-white font-bold text-2xl text-center my-6">Schedule</h1>
+  <Schedule astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
   <h1 class="text-white font-bold text-2xl text-center my-6">Finance</h1>
   <Finance astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
 </Layout>

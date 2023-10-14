@@ -1,5 +1,7 @@
 import { Fetcher, type FetchAdapter } from "../fetcher";
 
+import { type ITokenPayload } from "../../middleware";
+
 export class API_Presensi extends Fetcher {
   constructor(baseUrl: string, private token: string, adapter: FetchAdapter) {
     super(baseUrl, adapter);

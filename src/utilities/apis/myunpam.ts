@@ -25,6 +25,32 @@ export class API_MyUNPAM extends Fetcher {
     return payload;
   };
 
+  public getScheduleData = async () => {
+    return await this.fetchTo("/api/jadwal-kuliah", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }).then(async (e) => {
+      const responseData = await e.data;
+      if (e.status != 200) {
+        return {
+          status: {
+            success: false,
+            message: responseData.message,
+          },
+        };
+      } else {
+        return {
+          status: {
+            success: true,
+          },
+          data: responseData,
+        };
+      }
+    });
+  };
+
   public getFinanceData = async (semester?: string) => {
     return await this.fetchTo(`/api/keuangan?semester=${semester || ""}`, {
       method: "GET",
@@ -84,7 +110,7 @@ export class API_MyUNPAM extends Fetcher {
       return {
         status: {
           success: false,
-          message: e.response.data.message,
+          message: e.message,
         },
       };
     }

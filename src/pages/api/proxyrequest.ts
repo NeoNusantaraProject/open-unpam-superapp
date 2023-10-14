@@ -18,14 +18,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       data: body,
     });
 
-    return new Response(
-      JSON.stringify({
-        status: {
-          success: true,
-        },
-        data: data.data,
-      })
-    );
+    return new Response(JSON.stringify(data.data));
   } catch (e) {
     if (e instanceof AxiosError) {
       return new Response(
