@@ -52,11 +52,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       const tokenPayload = getTokenPayloadDecoded(PresensiToken.value);
 
       if (tokenPayload.exp * 1000 < Date.now()) {
-        console.log(
-          `[${tokenPayload.nama_user}] Presensi Token Expired ${new Date(
-            tokenPayload.exp * 1000
-          ).toString()}`
-        );
         context.cookies.delete("presensi_token");
         const data = await api.myunpam.requestPresensiLoginToken();
         if (!data.status.success) return next();

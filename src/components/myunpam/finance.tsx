@@ -43,8 +43,8 @@ const Finance: React.FC<{
           {financeData &&
             financeData.map((e, i) => (
               <tr key={i} className="odd:bg-palette-5 even:bg-palette-6">
-                <td>{e.no_tagihan}</td>
-                <td>{e.nomor_urut}</td>
+                <td className={`text-center`}>{e.no_tagihan}</td>
+                <td className={`text-center`}>{e.nomor_urut}</td>
                 <td>{e.keterangan}</td>
                 <td>
                   Rp.{" "}
@@ -62,9 +62,15 @@ const Finance: React.FC<{
                     {e.status}
                   </p>
                 </td>
-                <td>{e.tanggal_bayar}</td>
-                <td>{e.channel}</td>
-                <td>{e.nama_tempat_bayar}</td>
+                <td className={`text-center`}>
+                  {new Intl.DateTimeFormat("id-ID", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(new Date(e.tanggal_bayar))}
+                </td>
+                <td className={`text-center`}>{e.channel}</td>
+                <td className={`text-center`}>{e.nama_tempat_bayar}</td>
               </tr>
             ))}
         </tbody>

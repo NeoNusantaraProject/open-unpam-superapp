@@ -85,7 +85,7 @@ const Schedule: React.FC<{
                 <td className="text-center">{e.waktu_kuliah.hari.nama_hari}</td>
                 <td className="text-center">{e.waktu_kuliah.ket_jam}</td>
                 <td className="text-center">{e.id_periode}</td>
-                <td className="text-center">{e.ruang}</td>
+                <td className="text-center">{e.id_ruang}</td>
               </tr>
             ))}
         </tbody>
