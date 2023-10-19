@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ request }) => {
         "https://api.github.com/repos/AlfatArdiansa/presensi-astro/commits",
         {
           headers: {
-            Authorization: `Bearer ${import.meta.env.TOKEN_GH}`,
+            Authorization: `Bearer ${import.meta.env.PUBLIC_TOKEN_GH}`,
           },
         }
       );
