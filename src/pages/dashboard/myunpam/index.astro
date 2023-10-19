@@ -4,6 +4,7 @@ import Navbar from "../../../components/navbar.astro";
 import { initAPI } from "../../../utilities/apiprovider";
 import Finance from "../../../components/myunpam/finance";
 import Schedule from "../../../components/myunpam/schedule";
+import ExamPDF from "../../../components/myunpam/exampdf";
 
 const myUNPAMToken = Astro.cookies.get("my_unpam_token")?.value as string;
 const presensiToken = Astro.cookies.get("presensi_token")?.value as string;
@@ -15,8 +16,13 @@ const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 
 <Layout pageName="MyUNPAM">
   <Navbar username={nama_user} nim={id_user} />
-  <h1 class="text-white font-bold text-2xl text-center my-6">Schedule</h1>
-  <Schedule astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
-  <h1 class="text-white font-bold text-2xl text-center my-6">Finance</h1>
-  <Finance astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
+  <div class="px-12 h-full">
+    <h2 class="text-white font-bold text-2xl text-center my-6">Schedule</h2>
+    <Schedule astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
+    <h2 class="text-white font-bold text-2xl text-center my-6">Finance</h2>
+    <Finance astroCookies={{ myUNPAMToken, presensiToken }} client:visible />
+
+    <h2 class="text-white font-bold text-2xl text-center my-6">Exam</h2>
+    <ExamPDF astroCookies={{ myUNPAMToken, presensiToken }} client:load />
+  </div>
 </Layout>

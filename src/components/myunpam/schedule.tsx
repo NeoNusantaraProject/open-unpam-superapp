@@ -60,7 +60,7 @@ const Schedule: React.FC<{
   }, []);
 
   return (
-    <div className="px-12 text-white">
+    <div className="text-white">
       <table className="min-w-full">
         <thead>
           <tr className="rounded-tl-lg rounded-tr-lg bg-palette-3">
