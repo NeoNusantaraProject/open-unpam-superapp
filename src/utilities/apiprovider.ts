@@ -1,3 +1,4 @@
+import { API_Local } from "./apis/local";
 import { API_MyUNPAM } from "./apis/myunpam";
 import { API_Presensi } from "./apis/presensi";
 import type { FetchAdapter } from "./fetcher";
@@ -5,6 +6,7 @@ import type { FetchAdapter } from "./fetcher";
 export class APIProvider {
   public myunpam: API_MyUNPAM;
   public presensi: API_Presensi;
+  public local: API_Local;
   constructor(
     private myUNPAMToken: string,
     private presensiToken: string,
@@ -20,6 +22,7 @@ export class APIProvider {
       this.presensiToken,
       adapter
     );
+    this.local = new API_Local(import.meta.env.PUBLIC_LOCAL_ENDPOINT, adapter);
   }
 }
 
