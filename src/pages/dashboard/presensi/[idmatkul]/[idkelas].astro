@@ -2,7 +2,7 @@
 import Layout from "../../../../templates/layout.astro";
 import Navbar from "../../../../components/navbar.astro";
 import { initAPI } from "../../../../utilities/apiprovider";
-import { PertemuanGroup } from "../../../../components/pertemuan";
+import { PertemuanGroup } from "../../../../components/presensi/pertemuan";
 
 const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
 const presensiToken = Astro.cookies.get("presensi_token").value as string;
@@ -10,13 +10,17 @@ const api = initAPI({ myUNPAMToken, presensiToken });
 
 const { idmatkul, idkelas } = Astro.params;
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
-const apiResponse = await api.presensi.getMatkulPresensi(idmatkul, idkelas);
 ---
 
 <Layout pageName="Login Page">
   <Navbar username={nama_user} nim={id_user} />
 
   <div class="">
-    <PertemuanGroup pertemuanCollection={apiResponse.data} />
+    <!-- pertemuanCollection={apiResponse.data} -->
+    <PertemuanGroup
+      params={{ idmatkul, idkelas }}
+      astroCookie={{ myUNPAMToken, presensiToken }}
+      client:visible
+    />
   </div>
 </Layout>

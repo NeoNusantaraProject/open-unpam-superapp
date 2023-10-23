@@ -1,4 +1,8 @@
-interface IPertemuanProps {
+import { useEffect, useState } from "react";
+import { APIProvider } from "../../utilities/apiprovider";
+import LoadingComponent from "../LoadingComponent";
+
+interface IPertemuan {
   nama_pertemuan: string;
   jenis_perkuliahan: string;
   presensi_status: string;
@@ -16,7 +20,7 @@ const Pertemuan = ({
   presensi_status,
   presensi_date,
   nama_dosen,
-}: IPertemuanProps) => {
+}: IPertemuan) => {
   return (
     <div className="text-white p-2">
       <div className="bg-palette-4 p-1">
@@ -77,11 +81,30 @@ const Pertemuan = ({
 };
 
 export const PertemuanGroup: React.FC<{
-  pertemuanCollection: IPertemuanProps[];
-}> = ({ pertemuanCollection }) => {
-  return pertemuanCollection ? (
+  params: { idmatkul: string; idkelas: string };
+  astroCookie: { myUNPAMToken: string; presensiToken: string };
+}> = ({ astroCookie, params }) => {
+  const [apiData, setApiData] = useState<IPertemuan[]>([]);
+
+  const api = new APIProvider(
+    astroCookie.myUNPAMToken,
+    astroCookie.presensiToken,
+    "ProxyFetchAPI"
+  );
+
+  useEffect(() => {
+    api.presensi
+      .getMatkulPresensi(params.idmatkul, params.idkelas)
+      .then((e) => {
+        // console.log(e.data);
+        if (!e.status.success) return;
+        setApiData(e.data);
+      });
+  }, []);
+
+  return apiData.length > 0 ? (
     <div className="grid grid-cols-4">
-      {pertemuanCollection.map((e, index) => (
+      {apiData.map((e, index) => (
         <Pertemuan
           nama_pertemuan={e.nama_pertemuan}
           jenis_perkuliahan={e.jenis_perkuliahan}
@@ -95,10 +118,8 @@ export const PertemuanGroup: React.FC<{
       ))}
     </div>
   ) : (
-    <div className="w-full flex justify-center">
-      <h2 className="text-white font-bold text-2xl">
-        Ooops There is something wrong with the API layer
-      </h2>
+    <div className="w-full h-full flex justify-center">
+      <LoadingComponent />
     </div>
   );
 };

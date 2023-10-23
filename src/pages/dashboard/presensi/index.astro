@@ -1,7 +1,7 @@
 ---
 import Layout from "../../../templates/layout.astro";
 import Navbar from "../../../components/navbar.astro";
-import { MaktulGroup } from "../../../components/matkul.tsx";
+import { MaktulGroup } from "../../../components/presensi/matkul.tsx";
 
 import { initAPI } from "../../../utilities/apiprovider";
 
@@ -13,39 +13,21 @@ const api = initAPI({ myUNPAMToken, presensiToken });
 
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 
-const matakuliah = await api.presensi.getJadwalKuliah();
+// const matakuliah = await api.presensi.getJadwalKuliah();
 
-let errorMessage = "Hello World";
-let errorClass = "hidden";
+// let errorMessage = "Hello World";
+// let errorClass = "hidden";
 
-if (!matakuliah.status.success) {
-  errorClass = "visible";
-  errorMessage = matakuliah.status.message;
-}
+// if (!matakuliah.status.success) {
+//   errorClass = "visible";
+//   errorMessage = matakuliah.status.message;
+// }
 ---
 
 <Layout pageName="Presensi">
   <Navbar username={nama_user} nim={id_user} />
-  <a class={`${errorClass}`} href="/dashboard/presensi"
-    ><h2 class={`bg-red-500 font-bold text-white text-center text-xl`}>
-      {errorMessage}
-    </h2></a
-  >
-
   <div class="">
-    {
-      errorClass == "hidden" ? (
-        <MaktulGroup
-          matkulCollection={matakuliah.data.map((e) => ({
-            namaMatkul: e.nama_mata_kuliah,
-            sks: parseInt(e.sks),
-            idMatkul: e.id_mata_kuliah,
-            idKelas: e.id_kelas,
-          }))}
-        />
-      ) : (
-        ""
-      )
-    }
+    <MaktulGroup astroCookie={{ myUNPAMToken, presensiToken }} client:visible />
   </div>
 </Layout>
+ ../../../components/presensi/matkul.tsx
