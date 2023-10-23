@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { initAPI } from "../../utilities/apiprovider";
-import type { AstroCookies } from "astro";
+import LoadingComponent from "../LoadingComponent";
 
 interface IFinanceData {
   channel: string;
@@ -39,7 +39,14 @@ const Finance: React.FC<{
             <th>Tempat Pembayaran</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="w-full">
+          {!financeData && (
+            <tr>
+              <td colSpan={8}>
+                <LoadingComponent />
+              </td>
+            </tr>
+          )}
           {financeData &&
             financeData.map((e, i) => (
               <tr key={i} className="odd:bg-palette-5 even:bg-palette-6">

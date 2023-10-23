@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { initAPI } from "../../utilities/apiprovider";
+import LoadingComponent from "../LoadingComponent";
 
 interface IScheduleData {
   id_semester_registrasi: string;
@@ -75,6 +76,13 @@ const Schedule: React.FC<{
           </tr>
         </thead>
         <tbody>
+          {!scheduleData && (
+            <tr>
+              <td colSpan={8}>
+                <LoadingComponent />
+              </td>
+            </tr>
+          )}
           {scheduleData &&
             scheduleData.map((e, i) => (
               <tr key={i} className="odd:bg-palette-5 even:bg-palette-6">

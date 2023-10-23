@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { initAPI } from "../../utilities/apiprovider";
+import LoadingComponent from "../LoadingComponent";
 
 const ExamPDF: React.FC<{
   astroCookies: { myUNPAMToken: string; presensiToken: string };
@@ -80,14 +80,22 @@ const ExamPDF: React.FC<{
         <iframe src={uts.url} className="w-full h-full"></iframe>
       ) : (
         <div className="w-full h-full flex justify-center items-center">
-          <h2 className="text-white font-bold text-2xl">{uts.message}</h2>
+          {uts.message == "Loading" ? (
+            <LoadingComponent />
+          ) : (
+            <h2 className="text-white font-bold text-2xl">{uts.message}</h2>
+          )}
         </div>
       )}
       {uas.visible ? (
         <iframe src={uas.url} className="w-full h-full"></iframe>
       ) : (
         <div className="w-full h-full flex justify-center items-center">
-          <h2 className="text-white font-bold text-2xl">{uas.message}</h2>
+          {uas.message == "Loading" ? (
+            <LoadingComponent />
+          ) : (
+            <h2 className="text-white font-bold text-2xl">{uas.message}</h2>
+          )}
         </div>
       )}
     </div>

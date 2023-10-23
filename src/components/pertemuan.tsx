@@ -71,15 +71,6 @@ const Pertemuan = ({
             <button>Get QR</button>
           </a>
         </div>
-        {/* {presensi_status != "hadir" ? (
-          <div className="pb-1">
-            <button className="bg-palette-3 rounded-md text-center w-full">
-              Absen
-            </button>
-          </div>
-        ) : (
-          <></>
-        )} */}
       </div>
     </div>
   );
@@ -88,7 +79,7 @@ const Pertemuan = ({
 export const PertemuanGroup: React.FC<{
   pertemuanCollection: IPertemuanProps[];
 }> = ({ pertemuanCollection }) => {
-  return (
+  return pertemuanCollection ? (
     <div className="grid grid-cols-4">
       {pertemuanCollection.map((e, index) => (
         <Pertemuan
@@ -102,6 +93,12 @@ export const PertemuanGroup: React.FC<{
           key={index}
         />
       ))}
+    </div>
+  ) : (
+    <div className="w-full flex justify-center">
+      <h2 className="text-white font-bold text-2xl">
+        Ooops There is something wrong with the API layer
+      </h2>
     </div>
   );
 };
