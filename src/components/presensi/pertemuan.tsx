@@ -102,24 +102,35 @@ export const PertemuanGroup: React.FC<{
       });
   }, []);
 
-  return apiData.length > 0 ? (
-    <div className="grid grid-cols-4">
-      {apiData.map((e, index) => (
-        <Pertemuan
-          nama_pertemuan={e.nama_pertemuan}
-          jenis_perkuliahan={e.jenis_perkuliahan}
-          presensi_status={e.presensi_status}
-          presensi_date={e.presensi_date}
-          uid={e.uid}
-          qrcode={e.qrcode}
-          nama_dosen={e.nama_dosen}
-          key={index}
-        />
-      ))}
-    </div>
-  ) : (
-    <div className="w-full h-full flex justify-center">
-      <LoadingComponent />
+  return (
+    <div className="w-full h-full">
+      <div className="w-full mt-2 px-32">
+        <a href="/dashboard/presensi" className="w-1/12">
+          <button className="text-white bg-palette-6 px-4 py-1 rounded-md">
+            {"< Back"}
+          </button>
+        </a>
+      </div>
+      {apiData.length > 0 ? (
+        <div className="grid grid-cols-4">
+          {apiData.map((e, index) => (
+            <Pertemuan
+              nama_pertemuan={e.nama_pertemuan}
+              jenis_perkuliahan={e.jenis_perkuliahan}
+              presensi_status={e.presensi_status}
+              presensi_date={e.presensi_date}
+              uid={e.uid}
+              qrcode={e.qrcode}
+              nama_dosen={e.nama_dosen}
+              key={index}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-full flex justify-center">
+          <LoadingComponent />
+        </div>
+      )}
     </div>
   );
 };
