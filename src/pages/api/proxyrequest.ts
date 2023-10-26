@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ params, request }) => {
   const { method, to, headers, body } = await request.json();
 
   try {
-    const data = await fetcher.get(to, {
+    const data = await fetcher(to, {
       method,
       headers,
       data: body,

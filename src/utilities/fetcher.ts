@@ -1,9 +1,5 @@
 import https from "node:https";
-import axios, {
-  AxiosError,
-  type AxiosInstance,
-  type AxiosRequestConfig,
-} from "axios";
+import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 
 interface IRequestProxyAPIConfig {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
