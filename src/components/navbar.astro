@@ -1,4 +1,6 @@
 ---
+import React, { useState } from "react";
+
 interface Props {
   username: string;
   nim: string;
@@ -7,20 +9,68 @@ interface Props {
 const { username, nim } = Astro.props;
 ---
 
-<div class="h-10 grid grid-cols-3 items-center text-white bg-palette-1 px-32">
-  <div class="flex justify-start">
-    <p>
-      Authenticated as: {username} / {nim}
-    </p>
+<div
+  class="flex justify-end items-center text-white bg-palette-1 h-10 px-5 sm:justify-between"
+>
+  <!-- Navbar Button (Desktop) -->
+  <div class="hidden sm:flex sm:text-xs md:text-sm lg:text-md">
+    <p>Authenticated as: {username} / {nim}</p>
   </div>
-  <div class="flex justify-center">
-    <a class="bg-palette-6 px-2 rounded-md" href={"/dashboard"}
-      ><i class="fas fa-home-lg"></i></a
-    >
+  <div class="hidden sm:flex gap-2">
+    <div class="">
+      <a class="" href={"/dashboard"}
+        ><button class="rounded-md bg-palette-6 px-2">
+          <i class="fas fa-home"></i></button
+        ></a
+      >
+    </div>
+    <div class="">
+      <a href="/logout"
+        ><button class="rounded-md bg-palette-6 px-2">
+          <i class="fas fa-sign-out-alt"></i></button
+        ></a
+      >
+    </div>
   </div>
-  <div class="flex justify-end">
-    <a href="/logout"
-      ><button class="bg-palette-6 px-2 rounded-md"> Logout</button></a
-    >
+
+  <!-- Navbar Button (Mobile) -->
+  <button
+    class="block sm:hidden"
+    onclick="document.getElementsByClassName('nav-menu')[0].classList.toggle('hidden'); "
+  >
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- Navbar Menu (Mobile) -->
+<div class="nav-menu hidden">
+  <div
+    class="absolute w-min h-screen text-white bg-palette-1 px-5 py-3 right-0 top-0 z-10"
+  >
+    <div class="text-sm pb-5">
+      <p>
+        Authenticated as: {username} / {nim}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="">
+        <a class="" href={"/dashboard"}
+          ><button class="rounded-md bg-palette-6 px-2 w-32"> Home</button></a
+        >
+      </div>
+
+      <div class="">
+        <a href="/logout"
+          ><button class="rounded-md bg-palette-6 px-2 w-32"> Logout</button></a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="nav-menu-close absolute w-screen h-screen bg-transparent top-0 z-0"
+    onclick="document.getElementsByClassName('nav-menu')[0].classList.toggle('hidden');"
+  >
   </div>
 </div>

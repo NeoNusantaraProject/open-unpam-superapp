@@ -25,7 +25,7 @@
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
-    "node-cache": "^5.1.2",
-    "node_extra_ca_certs_mozilla_bundle": "^1.0.5"
+    "node_extra_ca_certs_mozilla_bundle": "^1.0.5",
+    "node-cache": "^5.1.2"
   }
 }
