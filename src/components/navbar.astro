@@ -1,4 +1,5 @@
 ---
+import NavbarComponent from "./navbar";
 interface Props {
   username: string;
   nim: string;
@@ -7,20 +8,6 @@ interface Props {
 const { username, nim } = Astro.props;
 ---
 
-<div class="h-10 grid grid-cols-3 items-center text-white bg-palette-1 px-32">
-  <div class="flex justify-start">
-    <p>
-      Authenticated as: {username} / {nim}
-    </p>
-  </div>
-  <div class="flex justify-center">
-    <a class="bg-palette-6 px-2 rounded-md" href={"/dashboard"}
-      ><i class="fas fa-home-lg"></i></a
-    >
-  </div>
-  <div class="flex justify-end">
-    <a href="/logout"
-      ><button class="bg-palette-6 px-2 rounded-md"> Logout</button></a
-    >
-  </div>
+<div class="xl:h-10 text-white bg-palette-1 xl:px-32">
+  <NavbarComponent username={username} nim={nim} client:visible />
 </div>
