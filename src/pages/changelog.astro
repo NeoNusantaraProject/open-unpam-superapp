@@ -23,7 +23,7 @@ const apiData = (await api.local.changelog()).data;
       {
         apiData.data.map((e) => (
           <div class="text-[#00d5ff]">
-            <h2 class="text-2xl">
+            <h2 class="text-sm xl:text-2xl">
               [
               <span class="text-[#2fff00]">
                 {new Intl.DateTimeFormat("id-ID", {
@@ -37,7 +37,7 @@ const apiData = (await api.local.changelog()).data;
               </span>
               ] - [<span class="text-[#ffc400]">{e.sha.slice(0, 7)}</span>]
             </h2>
-            <p class="text-white text-xl">{e.commit.message}</p>
+            <p class="text-white text-xs xl:text-xl">{e.commit.message}</p>
           </div>
         ))
       }
