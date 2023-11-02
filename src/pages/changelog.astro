@@ -21,25 +21,26 @@ const apiData = (await api.local.changelog()).data;
       >
 
       {
-        apiData.data.map((e) => (
-          <div class="text-[#00d5ff]">
-            <h2 class="text-sm xl:text-2xl">
-              [
-              <span class="text-[#2fff00]">
-                {new Intl.DateTimeFormat("id-ID", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                }).format(new Date(e.commit.committer.date))}
-              </span>
-              ] - [<span class="text-[#ffc400]">{e.sha.slice(0, 7)}</span>]
-            </h2>
-            <p class="text-white text-xs xl:text-xl">{e.commit.message}</p>
-          </div>
-        ))
+        apiData &&
+          apiData.data.map((e) => (
+            <div class="text-[#00d5ff]">
+              <h2 class="text-sm xl:text-2xl">
+                [
+                <span class="text-[#2fff00]">
+                  {new Intl.DateTimeFormat("id-ID", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  }).format(new Date(e.commit.committer.date))}
+                </span>
+                ] - [<span class="text-[#ffc400]">{e.sha.slice(0, 7)}</span>]
+              </h2>
+              <p class="text-white text-xs xl:text-xl">{e.commit.message}</p>
+            </div>
+          ))
       }
     </div>
   </div>
