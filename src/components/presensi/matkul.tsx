@@ -9,17 +9,19 @@ export const Matkul: React.FC<{
   idKelas: string;
 }> = ({ idKelas, idMatkul, namaMatkul, sks }) => {
   return (
-    <div className="text-white p-2">
-      <div className="bg-palette-4 p-1">
-        <p className="text-center font-bold">🚀{namaMatkul}</p>
+    <div className="container max-h-52 lg:max-h-64 bg-palette-4 text-white rounded">
+      <div className="h-20">
+        <p className="text-xs text-center font-semibold p-3 line-clamp-3 sm:text-md lg:text-lg">🚀{namaMatkul}</p>
+      </div>
+      <div className="flex flex-col justify-center text-xs gap-3 px-3 h-24 md:text-md lg:text-lg lg:h-32">
         <p>
           <i className="fas fa-layer-group"></i>
           {"  "}
           {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 31 : 0} Pertemuan
         </p>
         <a href={`/dashboard/presensi/${idMatkul}/${idKelas}`}>
-          <button className="px-2 rounded-md bg-palette-6">
-            <i className="fas fa-info-circle px-1"></i>Details
+          <button className="p-2 rounded bg-palette-6 hover:scale-110">
+            <i className="fas fa-info-circle"></i> Details
           </button>
         </a>
       </div>
@@ -61,19 +63,21 @@ export const MaktulGroup: React.FC<{
   }, []);
 
   return apiData.length > 0 ? (
-    <div className="grid grid-cols-4">
-      {apiData.map((e, i) => (
-        <Matkul
-          idKelas={e.idKelas}
-          idMatkul={e.idMatkul}
-          namaMatkul={e.namaMatkul}
-          sks={e.sks}
-          key={i}
-        />
-      ))}
+    <div className="flex p-5 flex-wrap justify-center items-center h-full">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {apiData.map((e, i) => (
+          <Matkul
+            idKelas={e.idKelas}
+            idMatkul={e.idMatkul}
+            namaMatkul={e.namaMatkul}
+            sks={e.sks}
+            key={i}
+          />
+        ))}
+      </div>
     </div>
   ) : (
-    <div className="w-full h-full flex justify-center">
+    <div className="flex justify-center w-full h-screen scale-75">
       <LoadingComponent />
     </div>
   );
