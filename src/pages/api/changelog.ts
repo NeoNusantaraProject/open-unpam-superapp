@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ request }) => {
     const cacheData = nCache.get("changelog");
     if (!cacheData) {
       const APIResponse = await fetcher.get(
-        "https://api.github.com/repos/AlfatArdiansa/presensi-astro/commits",
+        "https://api.github.com/repos/AlfatArdiansa/unpam-superapp/commits",
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.PUBLIC_TOKEN_GH}`,
