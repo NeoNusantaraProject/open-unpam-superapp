@@ -3,9 +3,8 @@ import Layout from "../templates/layout.astro";
 import { initAPI } from "../utilities/apiprovider";
 
 const myUNPAMToken = Astro.cookies.get("my_unpam_token")?.value as string;
-const presensiToken = Astro.cookies.get("presensi_token")?.value as string;
 
-const api = initAPI({ myUNPAMToken, presensiToken });
+const api = initAPI({ myUNPAMToken });
 
 const apiData = (await api.local.changelog()).data;
 ---

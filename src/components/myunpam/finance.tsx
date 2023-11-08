@@ -15,7 +15,7 @@ interface IFinanceData {
 }
 
 const Finance: React.FC<{
-  astroCookies: { myUNPAMToken: string; presensiToken: string };
+  astroCookies: { myUNPAMToken: string };
 }> = ({ astroCookies }) => {
   const [financeData, setFinanceData] = useState<IFinanceData[]>();
 

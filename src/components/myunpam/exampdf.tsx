@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LoadingComponent from "../LoadingComponent";
 
 const ExamPDF: React.FC<{
-  astroCookies: { myUNPAMToken: string; presensiToken: string };
+  astroCookies: { myUNPAMToken: string };
 }> = ({ astroCookies }) => {
   const [uts, setUts] = useState({
     url: "",

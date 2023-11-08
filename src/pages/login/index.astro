@@ -2,7 +2,11 @@
 import Layout from "../../templates/layout.astro";
 import { initAPI } from "../../utilities/apiprovider";
 
-const api = initAPI(Astro.cookies);
+const MyUNPAMToken = Astro.cookies.get("my_unpam_token");
+
+const api = initAPI({
+  myUNPAMToken: MyUNPAMToken?.value as string,
+});
 
 let errorMessageClass = "hidden";
 let errorMessage = "";

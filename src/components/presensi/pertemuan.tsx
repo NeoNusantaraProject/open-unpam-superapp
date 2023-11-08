@@ -82,24 +82,17 @@ const Pertemuan = ({
 
 export const PertemuanGroup: React.FC<{
   params: { idmatkul: string; idkelas: string };
-  astroCookie: { myUNPAMToken: string; presensiToken: string };
+  astroCookie: { myUNPAMToken: string };
 }> = ({ astroCookie, params }) => {
   const [apiData, setApiData] = useState<IPertemuan[]>([]);
 
-  const api = new APIProvider(
-    astroCookie.myUNPAMToken,
-    astroCookie.presensiToken,
-    "ProxyFetchAPI"
-  );
+  const api = new APIProvider(astroCookie.myUNPAMToken, "ProxyFetchAPI");
 
   useEffect(() => {
-    api.presensi
-      .getMatkulPresensi(params.idmatkul, params.idkelas)
-      .then((e) => {
-        // console.log(e.data);
-        if (!e.status.success) return;
-        setApiData(e.data);
-      });
+    api.myunpam.getMatkulPresensi(params.idmatkul, params.idkelas).then((e) => {
+      if (!e.status.success) return;
+      setApiData(e.data);
+    });
   }, []);
 
   return (
@@ -115,7 +108,7 @@ export const PertemuanGroup: React.FC<{
         <div className="grid grid-cols-4">
           {apiData.map((e, index) => (
             <Pertemuan
-              nama_pertemuan={e.nama_pertemuan}
+              nama_pertemuan={`PERTEMUAN ${index + 1}`}
               jenis_perkuliahan={e.jenis_perkuliahan}
               presensi_status={e.presensi_status}
               presensi_date={e.presensi_date}
