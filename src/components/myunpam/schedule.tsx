@@ -61,10 +61,10 @@ const Schedule: React.FC<{
   }, []);
 
   return (
-    <div className="text-white">
-      <table className="min-w-full">
+    <div className="w-full text-white overflow-x-scroll">
+      <table className="min-w-full text-[10px] sm:text-sm" cellPadding={10}>
         <thead>
-          <tr className="rounded-tl-lg rounded-tr-lg bg-palette-3">
+          <tr className="bg-palette-3">
             <th>Kode Matkul</th>
             <th>Nama Matkul</th>
             <th>Dosen</th>

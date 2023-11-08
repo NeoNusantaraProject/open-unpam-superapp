@@ -15,7 +15,7 @@ const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 
 <Layout pageName="MyUNPAM">
   <Navbar username={nama_user} nim={id_user} />
-  <div class="px-12 h-full">
+  <div class="p-3 h-full">
     <h2 class="text-white font-bold text-2xl text-center my-6">Schedule</h2>
     <Schedule astroCookies={{ myUNPAMToken }} client:visible />
     <h2 class="text-white font-bold text-2xl text-center my-6">Finance</h2>
