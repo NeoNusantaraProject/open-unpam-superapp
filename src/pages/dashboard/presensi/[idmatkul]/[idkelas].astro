@@ -14,7 +14,7 @@ const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 <Layout pageName="Login Page">
   <Navbar username={nama_user} nim={id_user} />
 
-  <div class="min-h-[50%] w-full">
+  <div class="h-screen w-full">
     <!-- pertemuanCollection={apiResponse.data} -->
     <PertemuanGroup
       params={{ idmatkul, idkelas }}

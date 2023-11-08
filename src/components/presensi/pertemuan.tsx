@@ -22,40 +22,39 @@ const Pertemuan = ({
   nama_dosen,
 }: IPertemuan) => {
   return (
-    <div className="text-white p-2">
-      <div className="bg-palette-4 p-1">
-        <div>
-          <p className="text-center font-bold">🚀 {nama_pertemuan}</p>
+    <div className="text-white">
+      <div className="bg-palette-4 p-3 rounded-md">
+        <div className="text-sm sm:text-sm lg:text-xl h-20">
+          <p className="text-center font-semibold">🚀 {nama_pertemuan}</p>
+        </div>
+        <div className="text-xs sm:text-sm">
           <p>{nama_dosen}</p>
           <p>
             <i
-              className={`nf ${
-                jenis_perkuliahan == "tatap muka"
-                  ? "fas fa-user"
-                  : jenis_perkuliahan == "e-learning"
+              className={`nf ${jenis_perkuliahan == "tatap muka"
+                ? "fas fa-user"
+                : jenis_perkuliahan == "e-learning"
                   ? "fas fa-laptop"
                   : "fad fa-circle"
-              }`}
+                }`}
             ></i>
             {jenis_perkuliahan || "Belum ada"}
           </p>
           <span
-            className={`px-1 rounded-md ${
-              presensi_status == "hadir"
-                ? "bg-green-600"
-                : presensi_status == "absen"
+            className={`px-1 rounded-md ${presensi_status == "hadir"
+              ? "bg-green-600"
+              : presensi_status == "absen"
                 ? "bg-red-600"
                 : "bg-palette-3"
-            }`}
+              }`}
           >
             <i
-              className={`nf ${
-                presensi_status == "hadir"
-                  ? "fas fa-check"
-                  : presensi_status == "absen"
+              className={`nf ${presensi_status == "hadir"
+                ? "fas fa-check"
+                : presensi_status == "absen"
                   ? "fas fa-close"
                   : "fad fa-circle"
-              }`}
+                }`}
             ></i>
             {presensi_status || "Belum Absensi"} - {presensi_date || "00"}
           </span>
@@ -97,15 +96,15 @@ export const PertemuanGroup: React.FC<{
 
   return (
     <div className="w-full h-full">
-      <div className="w-full mt-2 px-32">
+      <div className="w-full p-5">
         <a href="/dashboard/presensi" className="w-1/12">
-          <button className="text-white bg-palette-6 px-4 py-1 rounded-md">
+          <button className="text-white bg-palette-6 px-3 py-2 rounded-md">
             {"< Back"}
           </button>
         </a>
       </div>
       {apiData.length > 0 ? (
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 p-5 sm:grid-cols-4">
           {apiData.map((e, index) => (
             <Pertemuan
               nama_pertemuan={`PERTEMUAN ${index + 1}`}
@@ -120,7 +119,7 @@ export const PertemuanGroup: React.FC<{
           ))}
         </div>
       ) : (
-        <div className="w-full h-full flex justify-center">
+        <div className="flex justify-center items-center w-full h-[70%] scale-75">
           <LoadingComponent />
         </div>
       )}

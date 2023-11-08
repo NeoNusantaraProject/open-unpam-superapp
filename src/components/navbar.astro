@@ -10,7 +10,7 @@ const { username, nim } = Astro.props;
 ---
   
 <div
-  class="flex justify-end items-center text-white bg-palette-1 h-10 px-5 sm:justify-between"
+  class="flex justify-end items-center text-white bg-palette-1 h-14 px-5 sm:justify-between"
 >
 
   <!-- Navbar Button (Desktop) -->
@@ -48,7 +48,7 @@ const { username, nim } = Astro.props;
   <div
     class="absolute w-min h-screen text-white bg-palette-1 px-5 py-3 right-0 top-0 z-10"
   >
-    <div class="text-sm pb-5">
+    <div class="text-md pb-5">
       <p>
         Authenticated as: {username} / {nim}
       </p>
@@ -57,13 +57,13 @@ const { username, nim } = Astro.props;
     <div class="flex flex-col gap-3">
       <div class="">
         <a class="" href={"/dashboard"}
-          ><button class="rounded-md bg-palette-6 px-2 w-32"> Home</button></a
+          ><button class="rounded-md bg-palette-6 p-2 w-32"> Home</button></a
         >
       </div>
 
       <div class="">
         <a href="/logout"
-          ><button class="rounded-md bg-palette-6 px-2 w-32"> Logout</button></a
+          ><button class="rounded-md bg-palette-6 p-2 w-32"> Logout</button></a
         >
       </div>
     </div>
