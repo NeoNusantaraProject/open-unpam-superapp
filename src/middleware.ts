@@ -18,11 +18,9 @@ const getTokenPayloadDecoded = (token: string) => {
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const MyUNPAMToken = context.cookies.get("my_unpam_token");
-  const PresensiToken = context.cookies.get("presensi_token");
 
   let api = initAPI({
     myUNPAMToken: MyUNPAMToken?.value as string,
-    presensiToken: PresensiToken?.value as string,
   });
 
   if (context.url.pathname.startsWith("/dashboard")) {
@@ -30,37 +28,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (MyUNPAMToken.value == "" || MyUNPAMToken.value == null) {
       context.cookies.delete("my_unpam_token");
       return context.redirect("/login");
-    }
-
-    if (
-      !PresensiToken ||
-      PresensiToken.value == "" ||
-      PresensiToken.value == null
-    ) {
-      const data = await api.myunpam.requestPresensiLoginToken();
-
-      if (!data.status.success) return next();
-
-      const tokenPresensi = await api.presensi.getToken(data.data.token);
-
-      if (!tokenPresensi.status.success) return next();
-
-      context.cookies.set("presensi_token", tokenPresensi.data.access_token, {
-        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      });
-    } else {
-      const tokenPayload = getTokenPayloadDecoded(PresensiToken.value);
-
-      if (tokenPayload.exp * 1000 < Date.now()) {
-        context.cookies.delete("presensi_token");
-        const data = await api.myunpam.requestPresensiLoginToken();
-        if (!data.status.success) return next();
-        const tokenPresensi = await api.presensi.getToken(data.data.token);
-        if (!tokenPresensi.status.success) return next();
-        context.cookies.set("presensi_token", tokenPresensi.data.access_token, {
-          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        });
-      }
     }
   }
   return next();

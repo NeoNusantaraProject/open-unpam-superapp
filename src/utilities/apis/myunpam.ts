@@ -152,4 +152,82 @@ export class API_MyUNPAM extends Fetcher {
         };
     }
   };
+
+  public getJadwalKuliah = async () => {
+    try {
+      return await this.fetchTo("/api/presensi/mahasiswa/jadwal-kuliah", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      }).then(async (e) => {
+        const responseData = await e.data;
+
+        if (e.status != 200) {
+          return {
+            status: {
+              success: false,
+              message: responseData.message,
+            },
+          };
+        } else {
+          this.token = responseData.access_token;
+
+          return {
+            status: {
+              success: true,
+            },
+            data: responseData,
+          };
+        }
+      });
+    } catch (e) {
+      return {
+        status: {
+          success: false,
+          message: e.response.data.message,
+        },
+      };
+    }
+  };
+  public getMatkulPresensi = async (idMatkul: string, idKelas: string) => {
+    try {
+      return await this.fetchTo(
+        `/api/presensi/mahasiswa/jadwal-pertemuan/${idKelas}/${idMatkul}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        }
+      ).then(async (e) => {
+        const responseData = await e.data;
+
+        if (e.status != 200) {
+          return {
+            status: {
+              success: false,
+              message: responseData.message,
+            },
+          };
+        } else {
+          this.token = responseData.access_token;
+
+          return {
+            status: {
+              success: true,
+            },
+            data: responseData,
+          };
+        }
+      });
+    } catch (e) {
+      return {
+        status: {
+          success: false,
+          message: e.response.data.message,
+        },
+      };
+    }
+  };
 }

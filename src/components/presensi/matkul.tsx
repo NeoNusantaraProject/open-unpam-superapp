@@ -11,13 +11,15 @@ export const Matkul: React.FC<{
   return (
     <div className="container max-h-52 lg:max-h-64 bg-palette-4 text-white rounded">
       <div className="h-20">
-        <p className="text-xs text-center font-semibold p-3 line-clamp-3 sm:text-md lg:text-lg">🚀{namaMatkul}</p>
+        <p className="text-xs text-center font-semibold p-3 line-clamp-3 sm:text-md lg:text-lg">
+          🚀{namaMatkul}
+        </p>
       </div>
       <div className="flex flex-col justify-center text-xs gap-3 px-3 h-24 md:text-md lg:text-lg lg:h-32">
         <p>
           <i className="fas fa-layer-group"></i>
           {"  "}
-          {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 31 : 0} Pertemuan
+          {sks} SKS - {sks == 2 ? 14 : sks == 3 ? 21 : 0} Pertemuan
         </p>
         <a href={`/dashboard/presensi/${idMatkul}/${idKelas}`}>
           <button className="p-2 rounded bg-palette-6 hover:scale-110">
@@ -37,18 +39,14 @@ interface IMatkul {
 }
 
 export const MaktulGroup: React.FC<{
-  astroCookie: { myUNPAMToken: string; presensiToken: string };
+  astroCookie: { myUNPAMToken: string };
 }> = ({ astroCookie }) => {
   const [apiData, setApiData] = useState<IMatkul[]>([]);
 
-  const api = new APIProvider(
-    astroCookie.myUNPAMToken,
-    astroCookie.presensiToken,
-    "ProxyFetchAPI"
-  );
+  const api = new APIProvider(astroCookie.myUNPAMToken, "ProxyFetchAPI");
 
   useEffect(() => {
-    api.presensi.getJadwalKuliah().then((e) => {
+    api.myunpam.getJadwalKuliah().then((e) => {
       if (!e.status.success) return;
 
       setApiData(

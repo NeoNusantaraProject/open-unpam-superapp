@@ -6,10 +6,9 @@ import { MaktulGroup } from "../../../components/presensi/matkul.tsx";
 import { initAPI } from "../../../utilities/apiprovider";
 
 const myUNPAMToken = Astro.cookies.get("my_unpam_token").value as string;
-const presensiToken = Astro.cookies.get("presensi_token").value as string;
-if (!presensiToken) return Astro.redirect("/dashboard");
+if (!myUNPAMToken) return Astro.redirect("/dashboard");
 
-const api = initAPI({ myUNPAMToken, presensiToken });
+const api = initAPI({ myUNPAMToken });
 
 const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 ---
@@ -17,6 +16,6 @@ const { nama_user, id_user } = api.myunpam.getTokenPayloadDecoded();
 <Layout pageName="Presensi">
   <Navbar username={nama_user} nim={id_user} />
   <div class="h-sceen sm:h-[80%] w-full flex justify-center items-center">
-    <MaktulGroup astroCookie={{ myUNPAMToken, presensiToken }} client:visible />
+    <MaktulGroup astroCookie={{ myUNPAMToken }} client:visible />
   </div>
 </Layout>

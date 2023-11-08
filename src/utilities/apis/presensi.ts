@@ -47,7 +47,7 @@ export class API_Presensi extends Fetcher {
   };
   public getJadwalKuliah = async () => {
     try {
-      return await this.fetchTo("/api/mahasiswa/jadwal-kuliah", {
+      return await this.fetchTo("/api/presensi/mahasiswa/jadwal-kuliah", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${this.token}`,
@@ -85,7 +85,7 @@ export class API_Presensi extends Fetcher {
   public getMatkulPresensi = async (idMatkul: string, idKelas: string) => {
     try {
       return await this.fetchTo(
-        `/api/mahasiswa/jadwal-pertemuan/${idMatkul}/${idKelas}`,
+        `/api/presensi/mahasiswa/jadwal-pertemuan/${idMatkul}/${idKelas}`,
         {
           method: "GET",
           headers: {

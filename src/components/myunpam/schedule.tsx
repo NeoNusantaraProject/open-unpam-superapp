@@ -51,7 +51,7 @@ interface IScheduleData {
 }
 
 const Schedule: React.FC<{
-  astroCookies: { myUNPAMToken: string; presensiToken: string };
+  astroCookies: { myUNPAMToken: string };
 }> = ({ astroCookies }) => {
   const [scheduleData, setScheduleData] = useState<IScheduleData[]>();
 
