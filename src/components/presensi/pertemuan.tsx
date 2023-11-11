@@ -110,6 +110,9 @@ export const PertemuanGroup: React.FC<{
               jenis_perkuliahan={e.jenis_perkuliahan}
               presensi_status={e.presensi_status}
               presensi_date={e.presensi_date}
+              id_kelas={e.id_kelas}
+              id_mata_kuliah={e.id_mata_kuliah}
+              id_semester_registrasi={e.id_semester_registrasi}
               key={index}
             />
           ))}
