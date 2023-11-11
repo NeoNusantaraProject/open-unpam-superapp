@@ -2,31 +2,36 @@ import { useEffect, useState } from "react";
 import { APIProvider } from "../../utilities/apiprovider";
 import LoadingComponent from "../LoadingComponent";
 
-interface IPertemuan {
-  nama_pertemuan: string;
-  jenis_perkuliahan: string;
-  presensi_status: string;
-  presensi_date: string;
-  uid: string;
-  qrcode: string;
-  nama_dosen: string;
+interface IAPIData {
+  jenis_perkuliahan?: string;
+  id_semester_registrasi?: string;
+  id_mata_kuliah?: string;
+  id_kelas?: string;
+  ket_jam?: string;
+  tanggal_mulai?: string;
+  tanggal_akhir?: string;
+  presensi_status?: string;
+  presensi_date?: string;
+  presensi_by?: string;
+  date_status?: string;
 }
 
+type TPertemuanComponent = { pertemuan_ke: number } & IAPIData;
+
 const Pertemuan = ({
-  uid,
-  qrcode,
-  nama_pertemuan,
   jenis_perkuliahan,
   presensi_status,
   presensi_date,
-  nama_dosen,
-}: IPertemuan) => {
+  pertemuan_ke,
+  id_mata_kuliah,
+  id_kelas,
+  id_semester_registrasi,
+}: TPertemuanComponent) => {
   return (
     <div className="text-white p-2">
       <div className="bg-palette-4 p-1">
         <div>
-          <p className="text-center font-bold">🚀 {nama_pertemuan}</p>
-          <p>{nama_dosen}</p>
+          <p className="text-center font-bold">🚀 PERTEMUAN {pertemuan_ke}</p>
           <p>
             <i
               className={`nf ${
@@ -60,19 +65,12 @@ const Pertemuan = ({
             {presensi_status || "Belum Absensi"} - {presensi_date || "00"}
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-1 py-1">
+        <div className="grid grid-cols-1 gap-1 py-1">
           <a
             className="bg-palette-3 rounded-md text-center"
-            href={`https://presensi.unpam.ac.id/jadwal/presensi/${uid}`}
+            href={`https://my.unpam.ac.id/presensi/pertemuan/scan-qr-pertemuan/${pertemuan_ke}/${id_mata_kuliah}/${id_kelas}/${id_semester_registrasi}`}
           >
             <button>Scan QR</button>
-          </a>
-          <a
-            className="bg-palette-3 rounded-md text-center"
-            href={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qrcode}`}
-            target="_blank"
-          >
-            <button>Get QR</button>
           </a>
         </div>
       </div>
@@ -84,7 +82,7 @@ export const PertemuanGroup: React.FC<{
   params: { idmatkul: string; idkelas: string };
   astroCookie: { myUNPAMToken: string };
 }> = ({ astroCookie, params }) => {
-  const [apiData, setApiData] = useState<IPertemuan[]>([]);
+  const [apiData, setApiData] = useState<IAPIData[]>([]);
 
   const api = new APIProvider(astroCookie.myUNPAMToken, "ProxyFetchAPI");
 
@@ -108,13 +106,10 @@ export const PertemuanGroup: React.FC<{
         <div className="grid grid-cols-4">
           {apiData.map((e, index) => (
             <Pertemuan
-              nama_pertemuan={`PERTEMUAN ${index + 1}`}
+              pertemuan_ke={index + 1}
               jenis_perkuliahan={e.jenis_perkuliahan}
               presensi_status={e.presensi_status}
               presensi_date={e.presensi_date}
-              uid={e.uid}
-              qrcode={e.qrcode}
-              nama_dosen={e.nama_dosen}
               key={index}
             />
           ))}
